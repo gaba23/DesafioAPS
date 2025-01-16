@@ -56,7 +56,7 @@ const App = () => {
   
       if (!response.ok) {
         if (response.status === 429 && retries > 0) {
-          // Espera antes de tentar novamente (Exponential Backoff)
+          // Espera antes de tentar novamente
           console.log(`Limite de requisições atingido. Tentando novamente em ${delay / 1000} segundos...`);
           await new Promise(resolve => setTimeout(resolve, delay));
           return fetchCnpjData(cnpj, retries - 1, delay * 2); // Dobrar o delay em cada tentativa
@@ -66,7 +66,8 @@ const App = () => {
       }
 
       const data = await response.json();
-      console.log(data)
+      // console.log(data)
+      // Coletar os dados através da api do cnpjws
       setSelectedClient((prev: any) => ({
         ...prev,
         nome: data.razao_social || "",
@@ -104,7 +105,8 @@ const App = () => {
       if (data.erro) {
         throw new Error("CEP não encontrado.");
       }
-
+      
+      // Coletar os dados através da api do viacepws
       setSelectedClient((prev: any) => ({
         ...prev,
         logradouro: data.logradouro || "",
@@ -121,6 +123,7 @@ const App = () => {
     }
   };
 
+  // Ao criar ou alterar um cliente, o usuário vai abrir o formulário podendo, ou não, receber um cliente, dependendo do método utilizado
   const handleOpen = (client?: any) => {
     setSelectedClient(
       client || {

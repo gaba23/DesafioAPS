@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
+// Criação da entidade cliente, determinando id, cnpj, nome e dados da localização como obrigatórios
 @Entity()
 export class Client {
   @PrimaryGeneratedColumn()

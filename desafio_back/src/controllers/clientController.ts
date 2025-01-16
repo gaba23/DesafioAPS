@@ -4,6 +4,7 @@ import { Client } from "../entities/client";
 
 const clientRepository = AppDataSource.getRepository(Client);
 
+// Busca a lista de clientes
 export const getClients = async (req: Request, res: Response): Promise<void> => {
   const { page = 1, limit = 10, nome, cnpj } = req.query;
 
@@ -19,6 +20,7 @@ export const getClients = async (req: Request, res: Response): Promise<void> => 
   res.json({ total, clients });
 };
 
+// Criação de um novo cliente
 export const createClient = async (req: Request, res: Response): Promise<void> => {
   const { cnpj } = req.body;
 
@@ -33,7 +35,7 @@ export const createClient = async (req: Request, res: Response): Promise<void> =
   res.status(201).json(client);
 };
 
-
+// Atualização de um cliente
 export const updateClient = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
@@ -56,6 +58,7 @@ export const updateClient = async (req: Request, res: Response): Promise<void> =
   res.json(updatedClient);
 };
 
+// Remoção do cliente
 export const deleteClient = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   const result = await clientRepository.delete(id);
